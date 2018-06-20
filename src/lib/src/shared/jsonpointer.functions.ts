@@ -378,7 +378,7 @@ export class JsonPointer {
    * root object and pointer.
    *
    * @param  { object } object - the initial object or array
-   * @param  { (v: any, p?: string, o?: any) => any } function - iteratee function
+   * @param  fn { (v: any, p?: string, o?: any) => any } function - iteratee function
    * @param  { boolean = false } bottomUp - optional, set to TRUE to reverse direction
    * @param  { object = object } rootObject - optional, root object or array
    * @param  { string = '' } pointer - optional, JSON Pointer to object within rootObject
@@ -396,7 +396,9 @@ export class JsonPointer {
     if (isObject(object) || isArray(object)) {
       for (let key of Object.keys(object)) {
         const newPointer = pointer + '/' + this.escape(key);
-        this.forEachDeep(object[key], fn, bottomUp, newPointer, rootObject);
+        if (object[key]) {
+          this.forEachDeep(object[key], fn, bottomUp, newPointer, rootObject);
+        }
       }
     }
     if (bottomUp) { fn(object, pointer, rootObject); }
