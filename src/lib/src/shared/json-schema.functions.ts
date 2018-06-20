@@ -277,7 +277,8 @@ export function getInputType(schema, layoutNode: any = null) {
         inArray('string', schemaType) ? 'string' :
         inArray('number', schemaType) ? 'number' :
         inArray('integer', schemaType) ? 'integer' :
-        inArray('boolean', schemaType) ? 'boolean' : 'unknown';
+        inArray('boolean', schemaType) ? 'boolean' :
+        inArray('null', schemaType) ? 'null' : 'unknown';
     }
     if (schemaType === 'boolean') { return 'checkbox'; }
     if (schemaType === 'object') {
